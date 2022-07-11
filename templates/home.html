@@ -1,0 +1,76 @@
+<!-- Template page: offers three sections to visualize a 3 steps workflow.-->
+
+    {% extends "masterPage.html" %}
+
+    {% block content %}
+    <div class="row">
+            
+            <!-- Left Rail -->
+            <div class="col-xl-3 col-md-4">
+                <div class="section" >
+                    
+                </div>
+            </div>
+        
+    
+            <!-- Middle Rail -->
+            <div class="col-xl-6 col-md-4">
+                <div class="section" >
+                    <div class="panel panel--loose panel--raised base-margin-bottom">
+                        <form action="/" method="post">
+                        <h6 style="margin-left:10px;margin-top:20px"><b>Step 1: Select Infrastructure</b></h6><hr>
+                        <div class="responsive-table">
+                            <table class="table table--lined table--selectable table">
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Hostname</th>
+                                        <th>IP Address</th>
+                                        <th>Type</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for switch in switches %}
+                                    <tr>
+                                        <td>
+                                            <label class="checkbox">
+                                                <input type="checkbox" value="{{switch.instanceUuid}}" name="switch">
+                                                <span class="checkbox__input"></span>
+                                            </label>
+                                        </td>
+                                        <td>{{switch.hostname}}</td>
+                                        <td>{{switch.managementIpAddress}}</td>
+                                        <td>{{switch.type}}</td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <h6 style="margin-top: 40px;margin-left:10px;"><b>Step 2: Select Template</b></h6><hr>
+                        <div class="form-group base-margin-bottom">
+                            <div class="form-group__text select" style="margin-top: 30px;">
+                                <select name="template" value="Select template...">
+                                    <option disabled selected>Select template...</option>
+                                    {% for template in templates %}
+                                    <option value="{{template.templateId}}">{{template.name}} (Project: {{template.projectName}})</option>
+                                    {% endfor %}
+                                </select>
+                            </div>
+                        </div>
+
+                        <h6 style="margin-top: 40px;margin-left:10px;"><b>Step 3: Apply template</b></h6><hr>
+                        
+                            <input type="submit" class="btn btn--primary">
+                        </form>
+                </div>
+            </div>
+    
+        <!-- Right Rail -->
+        <div class="col-xl-3 col-md-4">
+            <div class="section" >
+                
+            </div>
+        </div>
+    </div>
+    {%  endblock %}
